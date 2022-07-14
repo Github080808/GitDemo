@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>qaclickacademy</groupId>
+	<artifactId>Mavenjava</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<name>Mavenjava</name>
+	<!-- FIXME change it to the project's website -->
+	<url>http://www.example.com</url>
+	
+	<profiles>
+		<!-- profileを設定し、ｘｍｌと紐づける-->
+		<profile>
+			<!-- idを設定し、cmdから実行する時に指定すると指定したidに紐づくxmlだけ実行できる-->
+			<id>Regression</id>
+			<build>
+				<pluginManagement>
+					<!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+					<plugins>
+						<!-- 最新版のsurefireに更新-->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-plugin</artifactId>
+							<version>3.0.0-M7</version>
+							<!-- mvnのサイトから追加ペースト。testng.xmlが実行される。このconfigがないとtestng.xmlは実行されず、直接javaファイルを実行する-->
+							<configuration>
+								<suiteXmlFiles>
+									<suiteXmlFile>testng2.xml</suiteXmlFile>
+								</suiteXmlFiles>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+		<!-- profileを設定し、ｘｍｌと紐づける-->
+		<profile>
+			<!-- idを設定し、cmdから実行する時に指定すると指定したidに紐づくxmlだけ実行できる-->
+			<!-- CMDから実行するには、mvn test -PSmokeを実行-->
+			<id>Smoke</id>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<!-- surefireプラグイン=Mavenビルドツールのコアプラグインの1つ-->
+						<!-- プラグインを使用してプロジェクトのテストを実行,XMLレポートの生成-->
+						<!-- JUnitとTestNGのテストフレームワークで動作-->
+						<!-- Test, Tests, TestCaseで終わるすべてのテストクラスを自動的に含む-->
+						<!-- excludes,includesパラメータを使用してこの設定を変更可能-->
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-plugin</artifactId>
+							<version>3.0.0-M7</version>
+							<!-- mvnのサイトから追加ペースト。testng.xmlが実行される。このconfigがないとtestng.xmlは実行されず、直接javaファイルを実行する-->
+							<configuration>
+								<suiteXmlFiles>
+									<suiteXmlFile>testng.xml</suiteXmlFile>
+								</suiteXmlFiles>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
+	</profiles>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+	</properties>
+
+	<dependencies>
+		<!-- Selenium Javaのdependencyを挿入-->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.2.1</version>
+		</dependency>
+
+		<!--　TestNGのdependencyを挿入 -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.6.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--　REST Assuredのdependencyを挿入 for APIテスト -->
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>5.1.0</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Java client for Appium Mobile Webdriverのdependencyを挿入 -->
+		<dependency>
+			<groupId>io.appium</groupId>
+			<artifactId>java-client</artifactId>
+			<version>8.1.1</version>
+		</dependency>
+
+		<!-- mvn test実行でSLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder"が出るので、追加 -->
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.30</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.30</version>
+		</dependency>
+	</dependencies>
+
+
+</project>
